@@ -1,0 +1,8 @@
+Ik ben een STG view
+database_test           : $database
+table_test              : $table
+#foreach( $loop_parameter in $loop_parameters )
+
+Column name test        : $loop_parameter.column_name
+Column description test : $loop_parameter.column_description
+#end
