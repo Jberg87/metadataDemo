@@ -18,10 +18,9 @@ public class App {
         // Start with where all data and configuration resides
 //        PathSelector pathSelector = new PathSelector();
 //        AppConstants.FILES_PATH = pathSelector.selectPath();
-        AppConstants.FILES_PATH = "C:\\dev\\Git\\metadataDemo\\files";
 
-        JsonParser.loadReferenceData(AppConstants.FILES_PATH + "\\referencedata.json");
-        JsonParser.loadMetadata(AppConstants.FILES_PATH + "\\metadata1.json");
+        JsonParser.loadReferenceData("referencedata.json");
+        JsonParser.loadMetadata("metadata1.json");
 
         Generator.getInstance().generate();
     }

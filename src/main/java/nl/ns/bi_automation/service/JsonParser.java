@@ -12,10 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class JsonParser {
@@ -24,9 +21,12 @@ public class JsonParser {
 
     public static void loadReferenceData(String path) {
 
+        logger.debug("loadReferenceData.path: " + path);
+        String absPath = ClassLoader.getSystemResource(path).getPath();
+        logger.debug(absPath);
         JSONParser parser = new JSONParser();
         try {
-            Object obj = parser.parse(new FileReader(new File(path)));
+            Object obj = parser.parse(new FileReader(absPath));
 
             // A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
             /*
@@ -51,14 +51,14 @@ public class JsonParser {
                 pipeline.setDescription((String) jsonPipeline.get("description"));
 
                 // Get columns from JSON object
-                /*
-                Component example:
-                {
-                  "name": "STG DDL",
-                  "template": "/templates/STG_DDL/template.vm",
-                  "parameters": "/templates/STG_DDL/parameters.json"
-                }
-                */
+            /*
+            Component example:
+            {
+              "name": "STG DDL",
+              "template": "/templates/STG_DDL/template.vm",
+              "parameters": "/templates/STG_DDL/parameters.json"
+            }
+            */
 
                 MetadataMonster.getInstance().addPipeline(pipeline);
 
@@ -82,11 +82,14 @@ public class JsonParser {
         }
     }
 
-    public static void loadMetadata(String filePath) {
+    public static void loadMetadata(String path) {
 
+        logger.debug("loadMetadata.path: " + path);
+        String absPath = ClassLoader.getSystemResource(path).getPath();
+        logger.debug(absPath);
         JSONParser parser = new JSONParser();
         try {
-            Object obj = parser.parse(new FileReader(new File(filePath)));
+            Object obj = parser.parse(new FileReader(absPath));
 
             // A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
             /*
@@ -190,10 +193,14 @@ public class JsonParser {
     }
 
     public static Map loadTemplateParameters(String path) {
+
+        logger.debug("loadTemplateParameters.path: " + path);
+        String absPath = ClassLoader.getSystemResource(path).getPath();
+        logger.debug(absPath);
         Map<String, Object> parameters = new HashMap<>();
         JSONParser parser = new JSONParser();
         try {
-            Object obj = parser.parse(new FileReader(new File(path)));
+            Object obj = parser.parse(new FileReader(absPath));
 
             // A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
             /*

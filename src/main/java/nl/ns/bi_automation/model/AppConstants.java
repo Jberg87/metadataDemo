@@ -1,7 +1,6 @@
 package nl.ns.bi_automation.model;
 
 public class AppConstants {
-    public static String FILES_PATH;
     public static final String LOG_TRACE_PREFIX = "== TRACE == ";
     public static final String LOG_DEBUG_PREFIX = "== DEBUG == ";
     public static final String LOG_WARNING_PREFIX = "== WARNING == ";
