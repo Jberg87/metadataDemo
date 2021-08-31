@@ -46,18 +46,18 @@ public class Generator {
                             logger.debug(" template parameter key: " + templateParameters.get(key) );
 
                             if (templateParameters.get(key) instanceof String) {
-                                logger.trace(AppConstants.LOG_TRACE_PREFIX + "resolve reguliere parameter");
+                                logger.trace("resolve reguliere parameter");
                                 resolvedTemplateParameters.put(key, MetadataMonster.getInstance().getValueForParameter(order.getTable(), (String) templateParameters.get(key)));
                             } else if (templateParameters.get(key) instanceof Map) {
                                 Map<String, String> templateLoopParameters = (Map<String, String>) templateParameters.get(key);
-                                logger.trace(AppConstants.LOG_TRACE_PREFIX + "resolve loop parameter");
+                                logger.trace("resolve loop parameter");
 
                                 //Neem aan dat een loop parameter om een column gaat
                                 ArrayList<Column> columns = MetadataMonster.getInstance().getColumnsByTable(order.getTable());
                                 for (Column col : columns) {
                                     Map<String, String> colMap = new HashMap<>();
                                     for (String mapKey : templateLoopParameters.keySet()) {
-                                        logger.debug(AppConstants.LOG_TRACE_PREFIX + "Loop parameter found: " + mapKey);
+                                        logger.debug("Loop parameter found: " + mapKey);
                                         String loopParameter = templateLoopParameters.get(mapKey);
                                         colMap.put(mapKey, MetadataMonster.getInstance().getValueForParameter(col, loopParameter));
                                     }
