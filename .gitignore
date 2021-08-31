@@ -1,2 +1,7 @@
 # Project exclude paths
 /target/
+.idea/
+.settings/
+.vscode/
+.project
+.classpath

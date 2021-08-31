@@ -1,6 +1,7 @@
 package nl.ns.bi_automation.model.metadata;
 
-import nl.ns.bi_automation.model.AppConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Column {
 
@@ -11,6 +12,8 @@ public class Column {
     private int scale;
     private boolean nullable;
     private String description;
+
+    private static final Logger logger = LogManager.getLogger(Column.class);
 
     //FIXME make unit test
     public String getValueForKey(String key) {
@@ -29,7 +32,7 @@ public class Column {
             case "DESCRIPTION": //<column.description>
                 return getDescription();
             default:
-                System.out.println(AppConstants.LOG_WARNING_PREFIX + "I, Column.getValueForKey do not know what to do with this COLUMN key: " + key);
+                logger.warn("I do not know what to do with this COLUMN key: " + key);
                 // Bij foutmelding ga maar gewoon door. Console toont de string dat er iets fout is gegaan
                 return "";
         }
