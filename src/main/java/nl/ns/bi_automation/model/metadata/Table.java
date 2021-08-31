@@ -1,6 +1,7 @@
 package nl.ns.bi_automation.model.metadata;
 
-import nl.ns.bi_automation.model.AppConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Table {
 
@@ -10,6 +11,8 @@ public class Table {
     private String type; //view or table
     private String owner;
     private String description;
+
+    private static final Logger logger = LogManager.getLogger(Table.class);
 
     public String getValueForKey(String key) {
         switch (key.toUpperCase()) {
@@ -26,7 +29,7 @@ public class Table {
             case "DESCRIPTION": //<table.description>
                 return getDescription();
             default:
-                System.out.println(AppConstants.LOG_WARNING_PREFIX + "I, Table.getValueForKey do not know what to do with this TABLE key: " + key);
+                logger.warn("I do not know what to do with this TABLE key: " + key);
                 // Bij foutmelding ga maar gewoon door. Console toont de string dat er iets fout is gegaan
                 return "";
         }

@@ -4,6 +4,8 @@ import nl.ns.bi_automation.model.AppConstants;
 import nl.ns.bi_automation.model.flow.Component;
 import nl.ns.bi_automation.model.flow.Order;
 import nl.ns.bi_automation.model.metadata.Column;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -17,22 +19,23 @@ public class Generator {
 
     private ArrayList<Order> orders = new ArrayList<Order>();
 
+    private static final Logger logger = LogManager.getLogger(Generator.class);
+
     public void generate() {
         for (Order order : orders) {
             if (order.isGenerate()) {
-                System.out.println("Going to generate the following table: " + order.getTable().getName());
-                System.out.println("  Going to generate the following pipeline: " + order.getPipeline().getId() + " - " + order.getPipeline().getDescription());
+                logger.debug("Going to generate the following table: " + order.getTable().getName());
+                logger.debug("  Going to generate the following pipeline: " + order.getPipeline().getId() + " - " + order.getPipeline().getDescription());
 
                 ArrayList<Component> components = MetadataMonster.getInstance().getComponents();
                 for (Component component : components) {
                     if (component.getPipeline() == order.getPipeline()) {
-                        System.out.println("    Template           : " + component.getTemplate());
-                        System.out.println("    Template parameters: " + component.getParameters());
+                        logger.debug("    Template           : " + component.getTemplate());
+                        logger.debug("    Template parameters: " + component.getParameters());
 
                         // TODO get template_parameter keys+parameter from template parameters file
                         Map<String, Object> templateParameters = JsonParser.loadTemplateParameters(component.getParameters());
 
-                        // TODO zoek in elke template_value naar paramaters (staan tussen < en >)
                         Map<String, Object> resolvedTemplateParameters = new HashMap<>();
                         ArrayList<Map<String, String>> resolvedTemplateLoopParameters = new ArrayList<>();
 //                        Map<String, Map<String, String>> resolvedTemplateLoopParameters = new HashMap<>(); //Gebruik de kolom naam als key
@@ -40,22 +43,21 @@ public class Generator {
                         // haal iedere parameter op via metadata monster
                         // voeg iedere template_key en resolved_template_value toe aan een template hashmap
                         for (String key : templateParameters.keySet()) {
-
-                            System.out.println(" template parameter key: " + templateParameters.get(key) );
-                            // TODO  bepalen of het gaat om TABLE of COLUMN?
+                            logger.debug(" template parameter key: " + templateParameters.get(key) );
 
                             if (templateParameters.get(key) instanceof String) {
-                                System.out.println(AppConstants.LOG_TRACE_PREFIX + "resolve reguliere parameter");
+                                logger.trace(AppConstants.LOG_TRACE_PREFIX + "resolve reguliere parameter");
                                 resolvedTemplateParameters.put(key, MetadataMonster.getInstance().getValueForParameter(order.getTable(), (String) templateParameters.get(key)));
                             } else if (templateParameters.get(key) instanceof Map) {
                                 Map<String, String> templateLoopParameters = (Map<String, String>) templateParameters.get(key);
-                                System.out.println(AppConstants.LOG_TRACE_PREFIX + "resolve loop parameter");
-                                //FIXME neem aan dat een loop parameter om een column gaat
+                                logger.trace(AppConstants.LOG_TRACE_PREFIX + "resolve loop parameter");
+
+                                //Neem aan dat een loop parameter om een column gaat
                                 ArrayList<Column> columns = MetadataMonster.getInstance().getColumnsByTable(order.getTable());
                                 for (Column col : columns) {
                                     Map<String, String> colMap = new HashMap<>();
                                     for (String mapKey : templateLoopParameters.keySet()) {
-                                        System.out.println(AppConstants.LOG_TRACE_PREFIX + "Loop parameter found: " + mapKey);
+                                        logger.debug(AppConstants.LOG_TRACE_PREFIX + "Loop parameter found: " + mapKey);
                                         String loopParameter = templateLoopParameters.get(mapKey);
                                         colMap.put(mapKey, MetadataMonster.getInstance().getValueForParameter(col, loopParameter));
                                     }
@@ -75,7 +77,7 @@ public class Generator {
                 }
             }
         }
-        System.out.println("tada!");
+        logger.info("tada!");
     }
 
     private void makeArtifact(String templatePath, Map<String, Object> parameters) {
@@ -90,9 +92,8 @@ public class Generator {
         StringWriter writer = new StringWriter();
         vmTemplate.merge( vContext, writer );
         String result = writer.toString();
-        System.out.println("======================");
-        System.out.println(result);
-        System.out.println("======================");
+        logger.info("Nieuwe component gegenereerd\n\n" + result + "\n\n");
+        logger.info("=========================================================================");
     }
 
     public void addOrder(Order order) {

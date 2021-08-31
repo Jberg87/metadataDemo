@@ -5,6 +5,8 @@ import nl.ns.bi_automation.model.flow.Component;
 import nl.ns.bi_automation.model.flow.Order;
 import nl.ns.bi_automation.model.flow.Pipeline;
 import nl.ns.bi_automation.model.metadata.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class JsonParser {
+
+    private static final Logger logger = LogManager.getLogger(JsonParser.class);
 
     public static void loadReferenceData(String path) {
 
@@ -172,7 +176,7 @@ public class JsonParser {
                             }
                     );
                 } else {
-                    System.out.println("No order for table: " + table.getName());
+                    logger.info("No order for table: " + table.getName());
                 }
             });
 
@@ -219,7 +223,7 @@ public class JsonParser {
                     Map<String, String> loopParameters = new HashMap<>();
                     JSONObject jsonLoopParameters = (JSONObject) jsonObject.get(key);
                     Set<String> loopKeys = jsonLoopParameters.keySet();
-                    loopKeys.forEach( loopKey -> {
+                    loopKeys.forEach(loopKey -> {
                         loopParameters.put(loopKey, (String) jsonLoopParameters.get(loopKey));
                     });
                     parameters.put("loop_parameters", loopParameters);

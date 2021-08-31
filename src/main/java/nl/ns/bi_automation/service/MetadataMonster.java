@@ -6,7 +6,8 @@ import nl.ns.bi_automation.model.flow.Pipeline;
 import nl.ns.bi_automation.model.metadata.Column;
 import nl.ns.bi_automation.model.metadata.Mapping;
 import nl.ns.bi_automation.model.metadata.Table;
-import org.example.App;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
@@ -18,22 +19,21 @@ public class MetadataMonster {
     private ArrayList<Pipeline> pipelines = new ArrayList<>();
     private ArrayList<Component> components = new ArrayList<>();
 
+    private static final Logger logger = LogManager.getLogger(MetadataMonster.class);
 
     /*
     Custom methods
      */
     public String getValueForParameter(Object metadataObject, String parameter) {
         if (null == parameter)
-            System.out.println(AppConstants.LOG_ERROR_PREFIX + "MetadataMonster.getValueForParameter received null for 'parameter' argument");
-        System.out.println("MetadataMonster.getValueForParameter.parameter: " + parameter);
+            logger.error("MetadataMonster.getValueForParameter received null for 'parameter' argument");
+        logger.trace("MetadataMonster.getValueForParameter.parameter: " + parameter);
         while (parameter.contains("<") && parameter.contains(">")) {
-            int pstart = parameter.indexOf("<");
-            int pend = parameter.indexOf(">");
-            String sp = parameter.substring(pstart, pend + 1); // sp = subParameter
+            String sp = parameter.substring(parameter.indexOf("<"), parameter.indexOf(">") + 1); // sp = subParameter
             String spPrefix = sp.substring(1, sp.indexOf(".")); //start met 1, want begint met "<"
-            System.out.println(AppConstants.LOG_TRACE_PREFIX + "MetadataMonster.spPrefix: " + spPrefix);
             String spKey = sp.replace(spPrefix + ".", "").replace("<", "").replace(">", ""); //trim alle rommel
-            System.out.println(AppConstants.LOG_TRACE_PREFIX + "MetadataMonster.spKey: " + spKey);
+            logger.trace("MetadataMonster.spPrefix: " + spPrefix);
+            logger.trace("MetadataMonster.spKey: " + spKey);
             if (metadataObject instanceof Column) {
                 switch (spPrefix.toUpperCase()) {
                     case AppConstants.KEY_PREFIX_COLUMN:
@@ -43,7 +43,7 @@ public class MetadataMonster {
                         parameter = parameter.replace(sp, ((Column) metadataObject).getTable().getValueForKey(spKey));
                         break;
                     default:
-                        return getWronglyRoutedMessage(metadataObject, parameter);
+                        getWronglyRoutedMessage(metadataObject, parameter);
                 }
 
             } else if (metadataObject instanceof Table) {
@@ -52,13 +52,13 @@ public class MetadataMonster {
                         parameter = parameter.replace(sp, ((Table) metadataObject).getValueForKey(spKey));
                         break;
                     default:
-                        System.out.println(getWronglyRoutedMessage(metadataObject, parameter));
+                        getWronglyRoutedMessage(metadataObject, parameter);
                 }
             } else {
-                System.out.println(getWronglyRoutedMessage(metadataObject, parameter));
+                getWronglyRoutedMessage(metadataObject, parameter);
             }
         }
-        // Zou nu helemaal resolved moeten zijn
+        // Zou nu helemaal resolved moeten zijn...
         return parameter;
     }
 
@@ -96,10 +96,8 @@ public class MetadataMonster {
         this.components.add(c);
     }
 
-    private String getWronglyRoutedMessage(Object metadataObject, String parameter) {
-        String m = String.valueOf(metadataObject.getClass());
-        return AppConstants.LOG_ERROR_PREFIX + "MetadataMonster does not understand combination of class '" + m + "' and parameter '" + parameter + "'";
-
+    private void getWronglyRoutedMessage(Object metadataObject, String parameter) {
+        logger.warn("MetadataMonster does not understand combination of class '" + metadataObject.getClass() + "' and parameter '" + parameter + "'");
     }
 
 

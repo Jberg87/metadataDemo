@@ -1,4 +1,4 @@
-package org.example;
+package nl.ns.bi_automation;
 
 import nl.ns.bi_automation.model.AppConstants;
 import nl.ns.bi_automation.service.Generator;
