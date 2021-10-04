@@ -1,0 +1,9 @@
+Ik ben een RDV mapping, een delete mapping, die dingen weggooit enzo
+database_test           : EDW
+table_test              : Persoon_S
+
+Column name test        : voorletters
+Column description test : voorletters: NOT NULL
+
+Column name test        : geslacht
+Column description test : geslacht: NOT NULL

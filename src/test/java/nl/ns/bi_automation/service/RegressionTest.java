@@ -5,11 +5,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MetadataMonsterTest {
+class RegressionTest {
 
+
+    private boolean setUpIsDone = false;
     @BeforeEach
     void setUp() {
-
+        JsonParser.loadReferenceData("referencedata.json");
+        JsonParser.loadMetadata("metadata1.json");
+        Generator.getInstance().generate();
+        setUpIsDone = true;
     }
 
     @Test
