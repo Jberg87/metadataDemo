@@ -30,9 +30,15 @@ class RegressionTest {
     }
 
     @Test
-    void assertTestMissingReferenceFIle() throws IOException {
+    void assertTestReferenceFileNotPresent() throws IOException {
         utils.assertFileExistAndEqualsReference("C:\\dev\\Git\\metadataDemo\\src\\test\\resources\\output\\",
                 "C:\\dev\\Git\\metadataDemo\\zz_results\\", "RDV mapping Persoon_H_DD.xml");
+    }
+
+    @Test
+    void assertTestGeneratedFileNotPresent() throws IOException {
+        utils.assertFileExistAndEqualsReference("C:\\dev\\Git\\metadataDemo\\src\\test\\resources\\output\\",
+                "C:\\dev\\Git\\metadataDemo\\zz_results\\", "RDV mapping Persoon_H_666.xml");
     }
 
     @Test
