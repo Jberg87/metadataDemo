@@ -1,0 +1,12 @@
+Ik ben een RDV mapping, een normale
+database_test           : EDW
+table_test              : Persoon_H
+
+Column name test        : voornaam
+Column description test : voornaam: NOT NULL
+
+Column name test        : achternaam
+Column description test : achternaam: NOT NULL
+
+Column name test        : geboortedatum
+Column description test : geboortedatum: NOT NULL

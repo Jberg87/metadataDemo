@@ -1,0 +1,46 @@
+{
+  "pipelines": [
+    {
+      "id": "1",
+      "description": "RDV Load zonder delete detectie SQL Server",
+      "components": [
+        {
+          "name": "STG tabel DDL",
+          "template": "templates/STG_tabel_DDL/template.vm",
+          "parameters": "templates/STG_tabel_DDL/template_parameters.json"
+        },
+        {
+          "name": "STG view DDL",
+          "template": "templates/STG_view_DDL/template.vm",
+          "parameters": "templates/STG_view_DDL/template_parameters.json"
+        },
+        {
+          "name": "RDV mapping insert-update DDL",
+          "template": "templates/RDV_mapping_normal/template.vm",
+          "parameters": "templates/RDV_mapping_normal/template_parameters.json"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "description": "RDV Load met delete detectie SQL Server",
+      "components": [
+        {
+          "name": "STG tabel DDL",
+          "template": "templates/STG_tabel_DDL/template.vm",
+          "parameters": "templates/STG_tabel_DDL/template_parameters.json"
+        },
+        {
+          "name": "STG view DDL",
+          "template": "templates/STG_view_DDL/template.vm",
+          "parameters": "templates/STG_view_DDL/template_parameters.json"
+        },
+        {
+          "name": "RDV mapping insert-update-delete DDL",
+          "template": "templates/RDV_mapping_delete/template.vm",
+          "parameters": "templates/RDV_mapping_delete/template_parameters.json"
+        }
+      ]
+    }
+  ]
+}

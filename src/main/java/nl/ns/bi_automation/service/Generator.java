@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 public class Generator {
 
@@ -78,7 +79,15 @@ public class Generator {
     }
 
     private void makeArtifact(String templatePath, Map<String, Object> parameters) {
-        VelocityEngine velocityEngine = new VelocityEngine();
+
+        /*
+        Met wat hulp van:
+        https://stackoverflow.com/questions/9051413/unable-to-find-velocity-template-resources
+         */
+        Properties p = new Properties();
+        p.setProperty("resource.loader", "class");
+        p.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        VelocityEngine velocityEngine = new VelocityEngine(p );
         Template vmTemplate = velocityEngine.getTemplate( templatePath );
 
         VelocityContext vContext = new VelocityContext();
