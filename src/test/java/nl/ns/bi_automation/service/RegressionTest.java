@@ -30,6 +30,12 @@ class RegressionTest {
     }
 
     @Test
+    void assertTestMissingReferenceFIle() throws IOException {
+        utils.assertFileExistAndEqualsReference("C:\\dev\\Git\\metadataDemo\\src\\test\\resources\\output\\",
+                "C:\\dev\\Git\\metadataDemo\\zz_results\\", "RDV mapping Persoon_H_DD.xml");
+    }
+
+    @Test
     void assertTestXmlAreSimilar() throws IOException {
         utils.assertFileExistAndEqualsReference("C:\\dev\\Git\\metadataDemo\\src\\test\\resources\\output\\",
                 "C:\\dev\\Git\\metadataDemo\\zz_results\\", "RDV mapping Persoon_H.xml");
