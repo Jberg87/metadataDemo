@@ -1,4 +1,5 @@
 {
+  "filename": "STG.<table.name>_VW.ddl",
   "database": "<table.database>",
   "table": "<table.name>",
   "loop_parameters": {

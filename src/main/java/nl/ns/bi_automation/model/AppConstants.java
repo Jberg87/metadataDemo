@@ -10,5 +10,5 @@ public class AppConstants {
     public static final String KEY_PREFIX_COLUMN = "COLUMN";
     public static final String VELOCITY_PARAMETERS = "PARAMETERS";
 
-    public static final String DIRECTORY_OUTPUT = 'zz_results'
+    public static final String DIRECTORY_OUTPUT = "zz_results";
 }

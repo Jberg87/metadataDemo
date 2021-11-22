@@ -90,11 +90,18 @@ public class Generator {
         vmTemplate.merge( vContext, writer );
         String result = writer.toString();
 
+
+        // File naam voor wegschrijven ophalen uit parameters
+        String filename = null;
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            if (entry.getKey().equals("filename"))
+                filename = entry.getValue().toString();
+        }
         // print naar console
         logger.info("Nieuwe component gegenereerd\n\n" + result + "\n\n");
         logger.info("=========================================================================");
 
-        writeArtifact(AppConstants.DIRECTORY_OUTPUT, "test.xml" ,writer.toString());
+        writeArtifact(AppConstants.DIRECTORY_OUTPUT, filename ,writer.toString());
     }
 
     private void writeArtifact(String directory, String filename, String artifact) {
