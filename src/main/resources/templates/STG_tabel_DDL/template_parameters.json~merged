@@ -1,0 +1,12 @@
+{
+  "filename": "STG.<table.name>.ddl",
+  "database": "<table.database>",
+  "table": "<table.name>",
+  "loop_parameters": {
+    "column_name": "<column.name>",
+    "column_precision": "<column.precision>",
+    "column_scale": "<column.scale>",
+    "column_nullable": "<column.nullable>",
+    "column_description": "<column.name>: <column.nullable>"
+  }
+}
