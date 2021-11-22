@@ -1,4 +1,5 @@
 {
+  "filename": "RDV mapping <table.name>_DD.xml",
   "database": "<table.database>",
   "table": "<table.name>",
   "loop_parameters": {

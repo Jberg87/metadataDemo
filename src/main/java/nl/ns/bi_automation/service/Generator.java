@@ -10,7 +10,10 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
-import java.io.StringWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,7 +42,6 @@ public class Generator {
 
                         Map<String, Object> resolvedTemplateParameters = new HashMap<>();
                         ArrayList<Map<String, String>> resolvedTemplateLoopParameters = new ArrayList<>();
-//                        Map<String, Map<String, String>> resolvedTemplateLoopParameters = new HashMap<>(); //Gebruik de kolom naam als key
 
                         // haal iedere parameter op via metadata monster
                         // voeg iedere template_key en resolved_template_value toe aan een template hashmap
@@ -67,14 +69,9 @@ public class Generator {
                             }
                         }
                         resolvedTemplateParameters.put("loop_parameters", resolvedTemplateLoopParameters);
+                        // geef mee aan velocity
                         makeArtifact( component.getTemplate(), resolvedTemplateParameters );
                     }
-
-
-                    // geef mee aan velocity
-                    // print naar console
-                    // schrijf weg naar disk
-
                 }
             }
         }
@@ -101,8 +98,53 @@ public class Generator {
         StringWriter writer = new StringWriter();
         vmTemplate.merge( vContext, writer );
         String result = writer.toString();
+
+
+        // File naam voor wegschrijven ophalen uit parameters
+        String filename = null;
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            if (entry.getKey().equals("filename"))
+                filename = entry.getValue().toString();
+        }
+        // print naar console
         logger.info("Nieuwe component gegenereerd\n\n" + result + "\n\n");
         logger.info("=========================================================================");
+
+        writeArtifact(AppConstants.DIRECTORY_OUTPUT, filename ,writer.toString());
+    }
+
+    private void writeArtifact(String directory, String filename, String artifact) {
+
+        try {
+            Path path = Paths.get(directory);
+            //java.nio.file.Files;
+            Files.createDirectories(path);
+            System.out.println("Directory is created!");
+        } catch (IOException e) {
+            System.err.println("Failed to create directory!" + e.getMessage());
+        }
+
+        String filepath = directory + "/" + filename;
+        /*
+        Code source:
+        https://www.w3schools.com/java/java_files_create.asp
+         */
+        // Delete file
+        File myObj = new File(filepath);
+        if (myObj.delete()) {
+            System.out.println("Deleted the file: " + myObj.getName());
+        } else {
+            System.out.println("Failed to delete the file " + myObj.getName() + " (or the file did not exist...).");
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
+            writer.write(artifact);
+            System.out.println("Successfully wrote to the file: " + filepath);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     public void addOrder(Order order) {
