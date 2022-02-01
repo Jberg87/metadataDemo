@@ -1,9 +1,12 @@
 {
   "filename": "STG.<table.name>.ddl",
   "database": "<table.database>",
+  "schema": "<table.schema>",
   "table": "<table.name>",
+  "owner": "<table.owner>",
   "loop_parameters": {
     "column_name": "<column.name>",
+    "column_datatype": "<column.datatype>",
     "column_precision": "<column.precision>",
     "column_scale": "<column.scale>",
     "column_nullable": "<column.nullable>",
