@@ -106,9 +106,9 @@ public class Generator {
             if (entry.getKey().equals("filename"))
                 filename = entry.getValue().toString();
         }
-        // print naar console
-        logger.info("Nieuwe component gegenereerd\n\n" + result + "\n\n");
-        logger.info("=========================================================================");
+        // toon result evt. in log/console
+        logger.debug("Nieuwe component gegenereerd\n\n" + result + "\n\n");
+        logger.debug("=========================================================================");
 
         writeArtifact(AppConstants.DIRECTORY_OUTPUT, filename ,writer.toString());
     }
@@ -119,9 +119,9 @@ public class Generator {
             Path path = Paths.get(directory);
             //java.nio.file.Files;
             Files.createDirectories(path);
-            System.out.println("Directory is created!");
+            logger.info("Directory is created!");
         } catch (IOException e) {
-            System.err.println("Failed to create directory!" + e.getMessage());
+            logger.warn("Failed to create directory!" + e.getMessage());
         }
 
         String filepath = directory + "/" + filename;
@@ -132,17 +132,17 @@ public class Generator {
         // Delete file
         File myObj = new File(filepath);
         if (myObj.delete()) {
-            System.out.println("Deleted the file: " + myObj.getName());
+            logger.info("Deleted the file: " + myObj.getName());
         } else {
-            System.out.println("Failed to delete the file " + myObj.getName() + " (or the file did not exist...).");
+            logger.warn("Failed to delete the file " + myObj.getName() + " (or the file did not exist...).");
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepath))) {
             writer.write(artifact);
-            System.out.println("Successfully wrote to the file: " + filepath);
+            logger.info("Successfully wrote to the file: " + filepath);
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            logger.error("An error occurred.");
             e.printStackTrace();
         }
     }

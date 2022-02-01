@@ -1,12 +1,11 @@
 {
   "filename": "STG.<table.name>_VW.ddl",
   "database": "<table.database>",
+  "schema": "<table.schema>",
   "table": "<table.name>",
+  "owner": "<table.owner>",
   "loop_parameters": {
     "column_name": "<column.name>",
-    "column_precision": "<column.precision>",
-    "column_scale": "<column.scale>",
-    "column_nullable": "<column.nullable>",
     "column_description": "<column.name>: <column.nullable>"
   }
 }
