@@ -19,8 +19,8 @@ public class App {
 //        PathSelector pathSelector = new PathSelector();
 //        AppConstants.FILES_PATH = pathSelector.selectPath();
 
-        JsonParser.loadReferenceData("referencedata.json");
-        JsonParser.loadMetadata("metadata1.json");
+        JsonParser.loadReferenceData("pipelines.json");
+        JsonParser.loadMetadata("metadata_objects.json", tableArray);
 
         Generator.getInstance().generate();
     }
