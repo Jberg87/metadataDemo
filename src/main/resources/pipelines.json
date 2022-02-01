@@ -41,6 +41,22 @@
           "parameters": "templates/RDV_mapping_delete/template_parameters.json"
         }
       ]
+    },
+    {
+      "id": "3",
+      "description": "RDV Tabel",
+      "components": [
+        {
+          "name": "RDV tabel DDL",
+          "template": "templates/RDV_tabel_DDL/template.vm",
+          "parameters": "templates/RDV_tabel_DDL/template_parameters.json"
+        },
+        {
+          "name": "RDV Stored procedure",
+          "template": "templates/RDV_stored_proc_DDL/template.vm",
+          "parameters": "templates/RDV_stored_proc_DDL/template_parameters.json"
+        }
+      ]
     }
   ]
 }

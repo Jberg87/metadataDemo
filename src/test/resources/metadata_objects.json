@@ -1,0 +1,261 @@
+{
+  "tables": [
+    {
+      "database": "EDW",
+      "schema": "RDV",
+      "name": "Persoon_H",
+      "type": "table",
+      "owner": "Jesper's baas",
+      "description": "alle personen",
+      "columns": [
+        {
+          "name": "PERSOON_H_HASHKEY",
+          "datatype": "CHAR",
+          "precision": "32",
+          "scale": "",
+          "nullable": "false",
+          "description": "Persoon Hub Hashkey"
+        },
+        {
+          "name": "RECORD_SOURCE",
+          "datatype": "varchar",
+          "precision": "200",
+          "scale": "",
+          "nullable": "false",
+          "description": "Record Source geeft aan uit welk proces/systeem het record vandaan komt"
+        },
+        {
+          "name": "LOADDATE",
+          "datatype": "datetime_ntz",
+          "precision": "",
+          "scale": "",
+          "nullable": "false",
+          "description": "De start  van het proces welk het record in de tabel is geladen"
+        },
+        {
+          "name": "VOORNAAM_BK",
+          "datatype": "varchar",
+          "precision": "200",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc1"
+        },
+        {
+          "name": "ACHTERNAAM_BK",
+          "datatype": "varchar",
+          "precision": "200",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc2"
+        },
+        {
+          "name": "GEBOORTEDATUM_BK",
+          "datatype": "datetime",
+          "precision": "",
+          "scale": "",
+          "nullable": "false",
+          "description": "geboortedatum in yyyy-mm-dd"
+        }
+      ],
+      "orders": [
+        {
+          "pipeline_id": "3",
+          "description": "RDV tabel",
+          "generate": "true"
+        }
+      ]
+    },
+    {
+      "database": "EDW",
+      "schema": "RDV",
+      "name": "Persoon_S_SOURCE1",
+      "type": "table",
+      "owner": "Jesper",
+      "description": "alle persoon details",
+      "columns": [
+        {
+          "name": "PERSOON_H_HASHKEY",
+          "datatype": "CHAR",
+          "precision": "32",
+          "scale": "",
+          "nullable": "false",
+          "description": "Persoon Hub Hashkey",
+          "fk_schema": "RDV",
+          "fk_object": "PERSOON_H"
+        },
+        {
+          "name": "RECORD_SOURCE",
+          "datatype": "varchar",
+          "precision": "200",
+          "scale": "",
+          "nullable": "false",
+          "description": "Record Source geeft aan uit welk proces/systeem het record vandaan komt"
+        },
+        {
+          "name": "LOADDATE",
+          "datatype": "datetime_ntz",
+          "precision": "",
+          "scale": "",
+          "nullable": "false",
+          "description": "De start  van het proces welk het record in de tabel is geladen"
+        },
+        {
+          "name": "VOORLETTERS",
+          "datatype": "varchar",
+          "precision": "50",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc1"
+        },
+        {
+          "name": "GESLACHT",
+          "datatype": "char",
+          "precision": "1",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc2"
+        }
+      ],
+      "orders": [
+        {
+          "pipeline_id": "1",
+          "description": "RDV Load zonder delete detectie SQL Server",
+          "generate": "true"
+        }
+      ]
+    },
+    {
+      "database": "EDW",
+      "schema": "RDV",
+      "name": "Persoon_S_SOURCE2",
+      "type": "table",
+      "owner": "Jesper",
+      "description": "alle persoon details",
+      "columns": [
+        {
+          "name": "PERSOON_H_HASHKEY",
+          "datatype": "CHAR",
+          "precision": "32",
+          "scale": "",
+          "nullable": "false",
+          "description": "Persoon Hub Hashkey",
+          "fk_schema": "RDV",
+          "fk_object": "PERSOON_H"
+        },
+        {
+          "name": "RECORD_SOURCE",
+          "datatype": "varchar",
+          "precision": "200",
+          "scale": "",
+          "nullable": "false",
+          "description": "Record Source geeft aan uit welk proces/systeem het record vandaan komt"
+        },
+        {
+          "name": "LOADDATE",
+          "datatype": "datetime_ntz",
+          "precision": "",
+          "scale": "",
+          "nullable": "false",
+          "description": "De start  van het proces welk het record in de tabel is geladen"
+        },
+        {
+          "name": "VOORLETTERS",
+          "datatype": "varchar",
+          "precision": "50",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc1"
+        },
+        {
+          "name": "GESLACHT",
+          "datatype": "char",
+          "precision": "1",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc2"
+        },
+        {
+          "name": "IS_DELETED",
+          "datatype": "char",
+          "precision": "1",
+          "scale": "",
+          "nullable": "false",
+          "description": "Of de bron dit bestand nog aanlevert of niet"
+        }
+      ],
+      "orders": [
+        {
+          "pipeline_id": "2",
+          "description": "RDV Load met delete detectie SQL Server",
+          "generate": "true"
+        }
+      ]
+    },
+    {
+      "database": "EDW",
+      "schema": "STG",
+      "name": "PERSOONGEGEVENS_prestage",
+      "type": "table",
+      "owner": "Jesper",
+      "record_source": "SOURCE1",
+      "description": "alle persoon details uit SOURCE1 systeem",
+      "columns": [
+        {
+          "name": "LOADDATE",
+          "datatype": "datetime_ntz",
+          "precision": "",
+          "scale": "",
+          "nullable": "false",
+          "description": "De start  van het proces welk het record in de tabel is geladen"
+        },
+        {
+          "name": "VOORNAAM",
+          "datatype": "varchar",
+          "precision": "200",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc1"
+        },
+        {
+          "name": "ACHTERNAAM",
+          "datatype": "varchar",
+          "precision": "200",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc2"
+        },
+        {
+          "name": "GEBOORTEDATUM",
+          "datatype": "datetime",
+          "precision": "",
+          "scale": "",
+          "nullable": "false",
+          "description": "geboortedatum in yyyy-mm-dd"
+        },
+        {
+          "name": "VOORLETTERS",
+          "datatype": "varchar",
+          "precision": "50",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc1"
+        },
+        {
+          "name": "GESLACHT",
+          "datatype": "char",
+          "precision": "1",
+          "scale": "",
+          "nullable": "false",
+          "description": "desc2"
+        }
+      ],
+      "orders": [
+        {
+          "pipeline_id": "1",
+          "description": "Standaard RDV Load zonder delete detectie SQL Server",
+          "generate": "true"
+        }
+      ]
+    }
+  ]
+}

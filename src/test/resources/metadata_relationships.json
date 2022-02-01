@@ -1,0 +1,105 @@
+{
+  "mappings": [
+    {
+      "mappingType": "DB-to-DB",
+      "sourceDatabase": "EDW",
+      "targetDatabase": "EDW",
+      "sourceSchema": "STG",
+      "targetSchema": "RDV",
+      "sourceTable": "PERSOONSGEGEVENS",
+      "targetTable": "PERSOON_H",
+      "sourceColumn": "VOORNAAM",
+      "targetColumn": "VOORNAAM_BK"
+    },
+    {
+      "mappingType": "DB-to-DB",
+      "sourceDatabase": "EDW",
+      "targetDatabase": "EDW",
+      "sourceSchema": "STG",
+      "targetSchema": "RDV",
+      "sourceTable": "PERSOONGEGEVENS",
+      "targetTable": "PERSOON_H",
+      "sourceColumn": "ACHTERNAAM",
+      "targetColumn": "ACHTERNAAM_BK"
+    },
+    {
+      "mappingType": "DB-to-DB",
+      "sourceDatabase": "EDW",
+      "targetDatabase": "EDW",
+      "sourceSchema": "STG",
+      "targetSchema": "RDV",
+      "sourceTable": "PERSOONSGEGEVENS",
+      "targetTable": "PERSOON_H",
+      "sourceColumn": "GEBOORTEDATUM",
+      "targetColumn": "GEBOORTEDATUM"
+    },
+    {
+      "mappingType": "DB-to-DB",
+      "sourceDatabase": "EDW",
+      "targetDatabase": "EDW",
+      "sourceSchema": "STG",
+      "targetSchema": "RDV",
+      "sourceTable": "PERSOONGEGEVENS",
+      "targetTable": "PERSOON_S_SOURCE1",
+      "sourceColumn": "VOORLETTERS",
+      "targetColumn": "VOORLETTERS"
+    },
+    {
+      "mappingType": "DB-to-DB",
+      "sourceDatabase": "EDW",
+      "targetDatabase": "EDW",
+      "sourceSchema": "STG",
+      "targetSchema": "RDV",
+      "sourceTable": "PERSOONGEGEVENS",
+      "targetTable": "PERSOON_S_SOURCE1",
+      "sourceColumn": "GESLACHT",
+      "targetColumn": "GEASLACHT"
+    },
+    {
+      "mappingType": "DB-to-DB",
+      "sourceDatabase": "EDW",
+      "targetDatabase": "EDW",
+      "sourceSchema": "STG",
+      "targetSchema": "RDV",
+      "sourceTable": "PERSOONGEGEVENS",
+      "targetTable": "PERSOON_S_SOURCE2",
+      "sourceColumn": "VOORLETTERS",
+      "targetColumn": "VOORLETTERS"
+    },
+    {
+      "mappingType": "DB-to-DB",
+      "sourceDatabase": "EDW",
+      "targetDatabase": "EDW",
+      "sourceSchema": "STG",
+      "targetSchema": "RDV",
+      "sourceTable": "PERSOONGEGEVENS",
+      "targetTable": "PERSOON_S_SOURCE2",
+      "sourceColumn": "GESLACHT",
+      "targetColumn": "GEASLACHT"
+    }
+  ]
+,"foreign keys": [
+    {
+      "mappingType": "DB-to-DB",
+      "sourceDatabase": "EDW",
+      "targetDatabase": "EDW",
+      "sourceTable": "PERSOON_S_SOURCE1",
+      "targetTable": "PERSOON_H",
+      "sourceSchema": "RDV",
+      "targetSchema": "RDV",
+      "sourceColumn": "PERSOON_H_HASHKEY",
+      "targetColumn": "PERSOON_H_HASHKEY"
+    },
+    {
+      "mappingType": "DB-to-DB",
+      "sourceDatabase": "EDW",
+      "targetDatabase": "EDW",
+      "sourceTable": "PERSOON_S_SOURCE2",
+      "targetTable": "PERSOON_H",
+      "sourceSchema": "RDV",
+      "targetSchema": "RDV",
+      "sourceColumn": "PERSOON_H_HASHKEY",
+      "targetColumn": "PERSOON_H_HASHKEY"
+    }
+  ] 
+}

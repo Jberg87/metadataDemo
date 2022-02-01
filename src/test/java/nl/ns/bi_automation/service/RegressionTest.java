@@ -18,8 +18,8 @@ class RegressionTest {
     @BeforeEach
     void setUp() {
         if (!setUpIsDone) {
-            JsonParser.loadReferenceData("referencedata.json");
-            JsonParser.loadMetadata("metadata1.json");
+            JsonParser.loadReferenceData("pipelines.json");
+            JsonParser.loadMetadata("metadata_objects.json");
             Generator.getInstance().generate();
             setUpIsDone = true;
         }
